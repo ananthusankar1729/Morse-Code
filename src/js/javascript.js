@@ -64,24 +64,24 @@ function getComputerChoice(){
     if (x<=(1/10)) {
         let z = Ka.mulberry32(1)
         let y = z()
-        let a = ["ART", "EAR", "TEA", "RAT", "SET"];
-        let b = ["A", "E", "T", "R", "S"];
+        let a = ["A", "E", "T", "R", "S"];
+        let b = ["ART", "RES", "SEA", "EAT", "TER"];
         if (y<=1/5){
-            b.push(a[0]);
+            a.push(b[0]);
         }
         else if (y<=2/5){
-            b.push(a[1]);
+            a.push(b[1]);
         }
         else if (y<=3/5){
-            b.push(a[2]);
+            a.push(b[2]);
         }
         else if (y<=4/5){
-            b.push(a[3]);
+            a.push(b[3]);
         }
         else {
-            b.push(a[4]);
+            a.push(b[4]);
         }
-        return b;
+        return a;
     }
     else if (x<=2/10){
         let z = Ka.mulberry32(1)
@@ -127,11 +127,158 @@ function getComputerChoice(){
         }
         return a;
     }
-    else if (x<=4/10){return}
-    else if (x<=5/10){return}
-    else if (x<=6/10){return}
-    else if (x<=7/10){return}
-    else if (x<=8/10){return}
-    else if (x<=9/10){return}
-    else 
+    else if (x<=4/10){
+        let z = Ka.mulberry32(1)
+        let y = z()
+        let a = ["E", "I", "B", "L", "T"];
+        let b = ["BET", "BIT", "LET", "LIT", "TIE"];
+        if (y<=1/5){
+            a.push(b[0]);
+        }
+        else if (y<=2/5){
+            a.push(b[1]);
+        }
+        else if (y<=3/5){
+            a.push(b[2]);
+        }
+        else if (y<=4/5){
+            a.push(b[3]);
+        }
+        else {
+            a.push(b[4]);
+        }
+        return a;
+    }
+    else if (x<=5/10){
+        let z = Ka.mulberry32(1)
+        let y = z()
+        let a = [ "E", "O", "H", "W", "F"];
+        let b = ["HOE", "WOE", "HEW", "FOE", "WHO"];
+        if (y<=1/5){
+            a.push(b[0]);
+        }
+        else if (y<=2/5){
+            a.push(b[1]);
+        }
+        else if (y<=3/5){
+            a.push(b[2]);
+        }
+        else if (y<=4/5){
+            a.push(b[3]);
+        }
+        else {
+            a.push(b[4]);
+        }
+        return a;
+    }
+    else if (x<=6/10){
+        let z = Ka.mulberry32(1)
+        let y = z()
+        let a = ["A","U", "J", "Y", "G"];
+        let b = ["JUG", "GAY", "YAK", "GUY", "JAY"];
+        if (y<=1/5){
+            a.push(b[0]);
+        }
+        else if (y<=2/5){
+            a.push(b[1]);
+        }
+        else if (y<=3/5){
+            a.push(b[2]);
+        }
+        else if (y<=4/5){
+            a.push(b[3]);
+        }
+        else {
+            a.push(b[4]);
+        }
+        return a;
+    }
+    else if (x<=7/10){
+        let z = Ka.mulberry32(1)
+        let y = z()
+        let a = [ "I", "O", "P", "Z", "T"];
+        let b = ["TIP", "TOP", "PIT", "POT", "ZIP"];
+        if (y<=1/5){
+            a.push(b[0]);
+        }
+        else if (y<=2/5){
+            a.push(b[1]);
+        }
+        else if (y<=3/5){
+            a.push(b[2]);
+        }
+        else if (y<=4/5){
+            a.push(b[3]);
+        }
+        else {
+            a.push(b[4]);
+        }
+        return a;
+    }
+    else if (x<=8/10){
+        let z = Ka.mulberry32(1)
+        let y = z()
+        let a = ["E", "U", "S", "N", "C"];
+        let b = ["USE", "SUN", "NET", "NUT", "CUE"];
+        if (y<=1/5){
+            a.push(b[0]);
+        }
+        else if (y<=2/5){
+            a.push(b[1]);
+        }
+        else if (y<=3/5){
+            a.push(b[2]);
+        }
+        else if (y<=4/5){
+            a.push(b[3]);
+        }
+        else {
+            a.push(b[4]);
+        }
+        return a;  
+    }
+    else if (x<=9/10){
+        let z = Ka.mulberry32(1)
+        let y = z()
+        let a = ["A", "I", "M", "L", "V"];
+        let b = ["AIM", "VIA", "LAM", "MAL", "MIL"];
+        if (y<=1/5){
+            a.push(b[0]);
+        }
+        else if (y<=2/5){
+            a.push(b[1]);
+        }
+        else if (y<=3/5){
+            a.push(b[2]);
+        }
+        else if (y<=4/5){
+            a.push(b[3]);
+        }
+        else {
+            a.push(b[4]);
+        }
+        return a;
+    }
+    else {
+        let z = Ka.mulberry32(1)
+        let y = z()
+        let a = ["O","U", "W", "R", "B"];
+        let b = ["OUR", "ROW", "WOO", "RUB", "BOW"];
+        if (y<=1/5){
+            a.push(b[0]);
+        }
+        else if (y<=2/5){
+            a.push(b[1]);
+        }
+        else if (y<=3/5){
+            a.push(b[2]);
+        }
+        else if (y<=4/5){
+            a.push(b[3]);
+        }           
+        else {
+            a.push(b[4]);
+        }
+        return a;   
+    }
 }
