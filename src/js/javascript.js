@@ -19,7 +19,7 @@ function getHumanChoice() {
         if (i != 5)
             prompt("Try typing the morse code of " + computerArray[i] + ", " + morseCode(computerArray[i]) + " in the console");
         else {
-            const word = computerArray[5].split('').map(morseCode).join(' ');
+            const word = computerArray[5].split('').map(morseCode).join('');
             userWord = prompt("Try typing the morse code of " + computerArray[i] + ", " + word + " in the console");
             let x = [userWord, word];
             return x;
