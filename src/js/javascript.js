@@ -15,8 +15,8 @@ function getHumanChoice() {
     return function (choice) {
         let userWord ='';
         let computerArray = choice();
-    for (let i = 0; i < 5; i++) {
-        if (i != 4)
+    for (let i = 0; i < 6; i++) {
+        if (i != 5)
             prompt("Try typing the morse code of " + computerArray[i] + ", " + morseCode(computerArray[i]) + " in the console");
         else {
             const word = computerArray[4].split('').map(morseCode).join(' ');
