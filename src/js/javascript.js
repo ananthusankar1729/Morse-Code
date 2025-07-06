@@ -1,3 +1,4 @@
+import Ka from './ka.js'
 let right = 0;
 let wrong = 0;
 function getHumanChoice() {
@@ -28,7 +29,6 @@ function getHumanChoice() {
         return userWord;
     }
 }
-import Ka from './ka.js'
 function getComputerChoice(){
     let x = Ka.mulberry32(12345); 
     let z = Ka.mulberry32(12345);
