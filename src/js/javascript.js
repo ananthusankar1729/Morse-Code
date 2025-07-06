@@ -28,35 +28,6 @@ function getHumanChoice() {
         return userWord;
     }
 }
-function playRound() {
-    let level = 1;
-    let h = getHumanChoice();
-    return function () {
-        level = prompt("Welcome to the Morse Code Game!Enter your level of progress:", level);
-        level = parseInt(level) || 1;
-        let choice = getComputerChoice();
-        for (let i = 1; i < level; i++){
-            choice();
-        }
-        const humanSelection = h(choice);
-        if (humanSelection[0] === humanSelection[1]) {
-            right++;
-            alert("Correct! Your score is: " + right);
-        } else {
-            wrong++;
-            alert("Wrong! The correct answer was: " + humanSelection[1] + ". Your score is: " + right);
-        }
-        alert("Right: " + right + ", Wrong: " + wrong);
-        level++;
-    }
-}
-let game = playRound();
-let keepPlaying = true;
-while (keepPlaying) {
-    game();
-    keepPlaying = confirm("Continue to next level?");
-}
-alert("Thanks for playing!");
 import Ka from './ka.js'
 function getComputerChoice(){
     let x = Ka.mulberry32(12345); 
