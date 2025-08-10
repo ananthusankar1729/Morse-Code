@@ -136,7 +136,6 @@ function getHumanChoice() {
                             input.style.display = "inline";
                             window.gameStarted = true;
                             sea.style.animation = "none";
-                            // Reset flashing for next round
                             flashingActive = true;
                             game();
                         };
