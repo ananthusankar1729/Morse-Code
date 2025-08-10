@@ -53,10 +53,8 @@ function getHumanChoice() {
                 });
                 video.style.display = 'block';
                 let flashingActive = true;
-
-                // Provide 2 seconds pause for user to read instructions before flashing starts
                 setTimeout(() => {
-                    if (flashingActive) {  // Only start flashing if still active
+                    if (flashingActive) {
                         playFlashesSequentially(flashes);
                     }
                 }, 2000);
@@ -76,7 +74,7 @@ function getHumanChoice() {
                     if (flash === 'pause') {
                         setTimeout(() => {
                             playFlashesSequentially(flashes);
-                        }, 1000);
+                        }, 2000);
                         return;
                     }
                     if (flash === '.') {
