@@ -53,8 +53,12 @@ function getHumanChoice() {
                 });
                 video.style.display = 'block';
                 let flashingActive = true;
+
+                // Provide 2 seconds pause for user to read instructions before flashing starts
                 setTimeout(() => {
-                    playFlashesSequentially(flashes);
+                    if (flashingActive) {  // Only start flashing if still active
+                        playFlashesSequentially(flashes);
+                    }
                 }, 2000);
                 function playFlashesSequentially(flashes) {
                     if (!flashingActive) {
@@ -63,16 +67,13 @@ function getHumanChoice() {
                         video.style.display = 'none';
                     }
                     if (flashes.length === 0) {
-                        console.log('All flashes completed');
                         video.pause();
                         video.currentTime = 0;
                         video.style.display = 'none';
                         return;
                     }
                     let flash = flashes.shift();
-                    console.log('Playing flash:', flash);
                     if (flash === 'pause') {
-                        console.log('Pausing between letters');
                         setTimeout(() => {
                             playFlashesSequentially(flashes);
                         }, 1000);
@@ -83,7 +84,6 @@ function getHumanChoice() {
                     } else if (flash === '-') {
                         video.src = "./Media/Dash.mp4";
                     } else {
-                        console.log('Skipping invalid flash:', flash);
                         playFlashesSequentially(flashes);
                         return;
                     }
@@ -107,7 +107,6 @@ function getHumanChoice() {
                             const playNextFlash = () => {
                                 if (nextFlashCalled) return;
                                 nextFlashCalled = true;
-                                console.log('Moving to next flash');
                                 video.onloadeddata = null;
                                 video.onended = null;
                                 playFlashesSequentially(flashes);
@@ -139,6 +138,8 @@ function getHumanChoice() {
                             input.style.display = "inline";
                             window.gameStarted = true;
                             sea.style.animation = "none";
+                            // Reset flashing for next round
+                            flashingActive = true;
                             game();
                         };
                     } else {
@@ -149,6 +150,8 @@ function getHumanChoice() {
                         window.gameStarted = false;
                         button.onclick = function () {
                             input.style.display = "inline";
+                            // Reset flashing for next attempt
+                            flashingActive = true;
                             game();
                         };
                     }
