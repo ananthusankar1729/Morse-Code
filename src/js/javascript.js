@@ -128,7 +128,7 @@ function getHumanChoice() {
                     video.style.display = 'none';
                     userWord = input.value.trim();
                     input.value = '';
-                    if (userWord === word) {
+                    if (userWord === computerArray[5]) {
                         right++;
                         input.style.display = "none";
                         text.textContent = "Correct! Your score is: " + right
@@ -145,12 +145,11 @@ function getHumanChoice() {
                     } else {
                         wrong++;
                         input.style.display = "none";
-                        text.textContent = "Wrong! The correct answer was: " + word
+                        text.textContent = "Wrong! The correct answer was: " + computerArray[5];
                         button.textContent = "Continue";
                         window.gameStarted = false;
                         button.onclick = function () {
                             input.style.display = "inline";
-                            // Reset flashing for next attempt
                             flashingActive = true;
                             game();
                         };
