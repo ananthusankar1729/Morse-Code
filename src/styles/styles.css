@@ -77,12 +77,17 @@ button {
         display: flex;
         height: 100%;
         width: 20%;
+        background-image: url('../Media/Poster.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
 
         video {
             flex: 1;
-            object-fit: fill;
+            object-fit: cover;
             width: 100%;
             height: 100%;
+            background-color: transparent;
         }
     }
 }
@@ -93,23 +98,25 @@ button {
     justify-content: flex-end;
 
     .sea {
-        flex: 1;
+        flex-basis: auto;
         background-color: #26abe7;
         padding: 0%;
         display: flex;
         align-items: flex-start;
         justify-content: flex-end;
+        height: 100%;
+        width: 100%;
 
         .boat {
             width: 100%;
-            height: 10%;
+            height: 100%;
             display: flex;
-            justify-content: flex-start;
-            align-items: flex-end;
+            justify-content: bottom;
+            align-items: end;
 
             img {
-                width: 10%;
-                height: 10%;
+                width: 20%;
+                height: 30%;
             }
         }
     }
@@ -123,4 +130,31 @@ input {
     border-radius: 5px;
     border: none;
     padding: 5px;
+}
+
+@keyframes shrinkSea {
+    0% {
+        width: 100%;
+        height: 100%;
+        transform-origin: bottom right;
+    }
+
+    70% {
+        width: 50%;
+        height: 50%;
+        transform-origin: bottom right;
+    }
+
+    100% {
+        width: 1%;
+        height: 1%;
+        transform-origin: top right;
+    }
+}
+
+.ocean .sea {
+    position: relative;
+    overflow: hidden;
+    background-color: #26abe7;
+    transition: all 0.5s ease-in-out;
 }
