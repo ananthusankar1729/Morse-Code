@@ -17,6 +17,7 @@ sky.appendChild(button);
 text.margin = "2px";
 text.textContent = "The lights blink in Morse Code. Type the word you see. Click the button to submit your answer. The following is the Morse Code for some of the letters you will see:";
 text.appendChild(document.createElement("br"));
+let video = document.querySelector("video");
 function getHumanChoice() {
     const morse = {
         'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.',
@@ -40,7 +41,24 @@ function getHumanChoice() {
             else {
                 const word = computerArray[5].split('').map(morseCode).join(' ');
                 text.appendChild(document.createElement("br"));
-                text.appendChild(document.createTextNode("Now enter morse code for the word: " + computerArray[5]));
+                text.appendChild(document.createTextNode("The lighthouse flashes the word. Decode and enter below: "));
+                let flashes = word.split(' ');
+                function playFlashesSequentially(flashes) {
+                    if (flashes.length === 0) {
+                        return;
+                    }
+                    let flash = flashes.shift();
+                    if (flash === '.') {
+                        video.src = "./Media/Dot.mp4";
+                    } else if (flash === '-') {
+                        video.src = "./Media/Dash.mp4";
+                    }
+                    video.play();
+                    video.onended = () => {
+                        playFlashesSequentially(flashes);
+                    };
+                }
+                playFlashesSequentially(flashes);
                 button.textContent = "Submit Answer";
                 button.onclick = function () {
                     userWord = input.value.trim();
