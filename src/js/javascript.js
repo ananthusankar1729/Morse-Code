@@ -18,6 +18,7 @@ text.margin = "2px";
 text.textContent = "The lights blink in Morse Code. Type the word you see. Click the button to submit your answer. The following is the Morse Code for some of the letters you will see:";
 text.appendChild(document.createElement("br"));
 let video = document.querySelector("video");
+let sea = document.querySelector(".ocean .sea");
 function getHumanChoice() {
     const morse = {
         'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.',
@@ -42,25 +43,90 @@ function getHumanChoice() {
                 const word = computerArray[5].split('').map(morseCode).join(' ');
                 text.appendChild(document.createElement("br"));
                 text.appendChild(document.createTextNode("The lighthouse flashes the word. Decode and enter below: "));
-                let flashes = word.split(' ');
+                let flashes = [];
+                computerArray[5].split('').forEach(letter => {
+                    const morseForLetter = morseCode(letter);
+                    for (let i = 0; i < morseForLetter.length; i++) {
+                        flashes.push(morseForLetter[i]);
+                    }
+                    flashes.push('pause');
+                });
+                video.style.display = 'block';
+                let flashingActive = true;
+                setTimeout(() => {
+                    playFlashesSequentially(flashes);
+                }, 2000);
                 function playFlashesSequentially(flashes) {
+                    if (!flashingActive) {
+                        video.pause();
+                        video.currentTime = 0;
+                        video.style.display = 'none';
+                    }
                     if (flashes.length === 0) {
+                        console.log('All flashes completed');
+                        video.pause();
+                        video.currentTime = 0;
+                        video.style.display = 'none';
                         return;
                     }
                     let flash = flashes.shift();
+                    console.log('Playing flash:', flash);
+                    if (flash === 'pause') {
+                        console.log('Pausing between letters');
+                        setTimeout(() => {
+                            playFlashesSequentially(flashes);
+                        }, 1000);
+                        return;
+                    }
                     if (flash === '.') {
                         video.src = "./Media/Dot.mp4";
                     } else if (flash === '-') {
                         video.src = "./Media/Dash.mp4";
-                    }
-                    video.play();
-                    video.onended = () => {
+                    } else {
+                        console.log('Skipping invalid flash:', flash);
                         playFlashesSequentially(flashes);
+                        return;
+                    }
+                    const newVideo = video.cloneNode(true);
+                    video.parentNode.replaceChild(newVideo, video);
+                    video = newVideo;
+                    if (flash === '.') {
+                        video.src = "./Media/Dot.mp4";
+                    } else {
+                        video.src = "./Media/Dash.mp4";
+                    }
+                    video.onloadeddata = function () {
+                        if (!flashingActive) {
+                            video.pause();
+                            video.currentTime = 0;
+                            video.style.display = 'none';
+                            return;
+                        }
+                        video.play().then(() => {
+                            let nextFlashCalled = false;
+                            const playNextFlash = () => {
+                                if (nextFlashCalled) return;
+                                nextFlashCalled = true;
+                                console.log('Moving to next flash');
+                                video.onloadeddata = null;
+                                video.onended = null;
+                                playFlashesSequentially(flashes);
+                            };
+                            video.onended = playNextFlash;
+                            setTimeout(playNextFlash, video.duration * 1000 + 100);
+                        }).catch(error => {
+                            console.error('Failed to play video:', error);
+                            playFlashesSequentially(flashes);
+                        });
                     };
+                    video.load();
                 }
-                playFlashesSequentially(flashes);
                 button.textContent = "Submit Answer";
                 button.onclick = function () {
+                    flashingActive = false;
+                    video.pause();
+                    video.currentTime = 0;
+                    video.style.display = 'none';
                     userWord = input.value.trim();
                     input.value = '';
                     if (userWord === word) {
@@ -68,9 +134,11 @@ function getHumanChoice() {
                         input.style.display = "none";
                         text.textContent = "Correct! Your score is: " + right
                         button.textContent = "Continue";
+                        sea.style.animation = "shrinkSea 2s linear forwards";
                         button.onclick = function () {
                             input.style.display = "inline";
                             window.gameStarted = true;
+                            sea.style.animation = "none";
                             game();
                         };
                     } else {
