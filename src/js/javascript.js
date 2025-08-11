@@ -93,29 +93,55 @@ function getHumanChoice() {
                     } else {
                         video.src = "./Media/Dash.mp4";
                     }
-                    video.onloadeddata = function () {
+                    let videoReady = false;
+                    let playAttempted = false;
+
+                    const attemptPlay = () => {
+                        if (playAttempted || !flashingActive) return;
+                        playAttempted = true;
+
                         if (!flashingActive) {
                             video.pause();
                             video.currentTime = 0;
                             video.style.display = 'none';
                             return;
                         }
+
                         video.play().then(() => {
                             let nextFlashCalled = false;
                             const playNextFlash = () => {
                                 if (nextFlashCalled) return;
                                 nextFlashCalled = true;
                                 video.onloadeddata = null;
+                                video.oncanplaythrough = null;
                                 video.onended = null;
                                 playFlashesSequentially(flashes);
                             };
                             video.onended = playNextFlash;
-                            setTimeout(playNextFlash, video.duration * 1000 + 100);
+                            setTimeout(playNextFlash, (video.duration * 1000) + 500);
                         }).catch(error => {
                             console.error('Failed to play video:', error);
-                            playFlashesSequentially(flashes);
+                            setTimeout(() => playFlashesSequentially(flashes), 1000);
                         });
                     };
+
+                    video.onloadeddata = function () {
+                        if (video.readyState >= 2) {
+                            videoReady = true;
+                            attemptPlay();
+                        }
+                    };
+
+                    video.oncanplaythrough = function () {
+                        videoReady = true;
+                        attemptPlay();
+                    };
+
+                    setTimeout(() => {
+                        if (!playAttempted && flashingActive) {
+                            attemptPlay();
+                        }
+                    }, 3000);
                     video.load();
                 }
                 button.textContent = "Submit Answer";
